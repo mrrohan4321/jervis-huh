@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J.A.R.V.I.S — Neural Link</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- config bar: only shown if the backend host needs changing -->
+  <div class="boot-overlay" id="bootOverlay">
+    <div class="boot-box">
+      <div class="boot-line">J.A.R.V.I.S — INITIALIZING</div>
+      <div class="boot-sub">backend&nbsp;
+        <input id="hostInput" spellcheck="false" value="localhost:8000">
+      </div>
+      <button id="bootConnect">CONNECT</button>
+      <div class="boot-status" id="bootStatus"></div>
+    </div>
+  </div>
+
+  <div class="stage" id="stage">
+
+    <!-- top bar -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">◈</span>
+        <div class="brand-text">
+          <span class="brand-name">J·A·R·V·I·S</span>
+          <span class="brand-sub">NEURAL BRAIN — <span id="linkState">CONNECTING</span></span>
+        </div>
+      </div>
+      <div class="pills">
+        <div class="pill" id="pillConn"><span class="dot"></span>LINK · OFFLINE</div>
+        <div class="pill" id="pillMic"><span class="dot"></span>MIC · IDLE</div>
+        <div class="pill" id="pillMaster"><span class="dot"></span>MASTER · —</div>
+        <button class="pill pill-btn" id="historyBtn" title="Full conversation history">HISTORY</button>
+        <button class="pill pill-btn" id="themeBtn" title="Switch theme">CYAN</button>
+        <button class="pill pill-btn pill-icon" id="panelsBtn" title="Show/hide HUD panels">☰</button>
+      </div>
+    </header>
+
+    <!-- central 3D network graph -->
+    <div id="graph3d"></div>
+    <div class="core-pulse" id="corePulse"></div>
+
+    <!-- floating HUD panels -->
+    <div class="hud-panels" id="hudPanels">
+    <section class="panel panel-tl" id="panelSignal">
+      <div class="panel-title">SIGNAL</div>
+      <div class="hbar"><span>UPTIME</span><div class="bar"><i id="barUptime"></i></div></div>
+      <div class="hbar"><span>ACTIVITY</span><div class="bar"><i id="barActivity"></i></div></div>
+    </section>
+
+    <section class="panel panel-tr" id="panelWave">
+      <div class="panel-title">VOICE / LOG</div>
+      <svg id="wave" viewBox="0 0 220 60" preserveAspectRatio="none"></svg>
+    </section>
+
+    <section class="panel panel-bl" id="panelLog">
+      <div class="panel-title">EXCHANGE LOG</div>
+      <div class="log-body" id="logBody"></div>
+    </section>
+
+    <section class="panel panel-br" id="panelStats">
+      <div class="panel-title">OVERVIEW</div>
+      <div class="stat-row"><span>CONVERSATIONS</span><b id="statConv">0</b></div>
+      <div class="stat-row"><span>UPTIME</span><b id="statUptime">0s</b></div>
+      <div class="intent-list" id="intentList"></div>
+    </section>
+
+    <!-- mic scope, bottom-left small -->
+    <div class="scope" id="scope">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="46" class="scope-ring"></circle>
+        <circle cx="50" cy="50" r="30" class="scope-ring faint"></circle>
+        <line x1="50" y1="4" x2="50" y2="96" class="scope-cross"></line>
+        <line x1="4" y1="50" x2="96" y2="50" class="scope-cross"></line>
+        <line id="scopeSweep" x1="50" y1="50" x2="50" y2="4" class="scope-sweep"></line>
+      </svg>
+    </div>
+    </div>
+
+    <!-- caption ticker -->
+    <div class="ticker">
+      <div class="ticker-text" id="tickerText">awaiting wake word…</div>
+    </div>
+
+    <!-- bottom nav / quick commands -->
+    <nav class="botnav" id="botnav">
+      <button data-cmd="what's the time">TIME</button>
+      <button data-cmd="what's the date">DATE</button>
+      <button data-cmd="what's the weather">WEATHER</button>
+      <button data-cmd="give me today's news">NEWS</button>
+      <button data-cmd="tell me a joke">JOKE</button>
+      <button data-cmd="give me the stats">STATS</button>
+      <button data-cmd="who are you">IDENTITY</button>
+      <form id="askForm" autocomplete="off">
+        <input id="askInput" placeholder="type a command…" autocomplete="off">
+        <button type="submit">SEND</button>
+      </form>
+    </nav>
+
+  </div>
+
+  <!-- node detail modal: click any non-core node in the graph -->
+  <div class="modal" id="nodeModal">
+    <div class="modal-box">
+      <button class="modal-close" id="nodeModalClose">×</button>
+      <div class="modal-title" id="nodeModalTitle">EXCHANGE</div>
+      <div class="modal-body" id="nodeModalBody"></div>
+    </div>
+  </div>
+
+  <!-- full conversation history modal -->
+  <div class="modal" id="historyModal">
+    <div class="modal-box modal-wide">
+      <button class="modal-close" id="historyModalClose">×</button>
+      <div class="modal-title">FULL EXCHANGE LOG <span id="historyCount" class="modal-count"></span></div>
+      <div class="modal-body" id="historyBody"></div>
+    </div>
+  </div>
+
+<script src="https://unpkg.com/d3@7/dist/d3.min.js"></script>
+<script src="https://unpkg.com/3d-force-graph@1/dist/3d-force-graph.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

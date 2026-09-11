@@ -1,0 +1,34 @@
+# Gesture control / HUD
+opencv-contrib-python
+mediapipe
+numpy
+psutil
+pillow
+
+# Windows volume + brightness control
+pycaw
+screen_brightness_control
+comtypes
+
+# Voice commands (Google Speech Recognition via mic)
+SpeechRecognition
+pyaudio
+
+# Offline wake word + speech-to-text (used by wake_word.py)
+vosk
+sounddevice
+
+# Text-to-speech
+pyttsx3
+pywin32; sys_platform == 'win32'
+
+# Weather / news / LLM Q&A (HTTP calls)
+requests
+
+# Config (.env loading)
+python-dotenv
+
+# Local REST + WebSocket API server
+fastapi
+uvicorn[standard]
+pydantic
